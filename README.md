@@ -4,7 +4,7 @@
 
 Integrant:
 
-#### Profesor
+#### Teacher
 
 [Hector Fernandez](mailto:hecferme@gmail.com)
 
