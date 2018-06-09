@@ -1,9 +1,14 @@
 # BSI-513.BINGO
 
-Lab I
+### Lab I
 
 Integrant:
 
+#### Profesor
+
+[Hector Fernandez](mailto:hecferme@gmail.com)
+
+#### Students
 
 [Sergio Segura](mailto:Sergio.Segura1@ulatina.net)
 
