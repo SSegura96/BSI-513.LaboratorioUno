@@ -5,10 +5,10 @@ Lab I
 Integrant:
 
 
-[Sergio Segura](Sergio.Segura1@ulatina.net)
+[Sergio Segura](mailto:Sergio.Segura1@ulatina.net)
 
-(Sofia Jimenez)[sofiajimenezm20@gmail.com]
+[Sofia Jimenez](mailto:sofiajimenezm20@gmail.com)
 
-(Javier Fernandez)[javier_f13@outlook.com]
+[Javier Fernandez](mailto:javier_f13@outlook.com)
 
-(Royman Gutierrez)[rggs3010@gmail.com]
+[Royman Gutierrez](mailto:rggs3010@gmail.com)
