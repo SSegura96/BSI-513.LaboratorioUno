@@ -18,4 +18,3 @@ Integrant:
 
 [Royman Gutierrez](mailto:rggs3010@gmail.com)
 
-Hola
