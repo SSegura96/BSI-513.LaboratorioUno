@@ -5,7 +5,7 @@ Lab I
 Integrant:
 
 
-(Sergio Segura)[Sergio.Segura1@ulatina.net]
+[Sergio Segura](Sergio.Segura1@ulatina.net)
 
 (Sofia Jimenez)[sofiajimenezm20@gmail.com]
 
