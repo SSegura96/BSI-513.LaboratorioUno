@@ -145,5 +145,174 @@ namespace WcfLab1.Domain.Actions
             }
             Console.ReadKey();
         }
+
+        public string[,] patronLleno()
+        {
+            string[,] patron = new string[5, 5];
+            for (int f = 0; f < 5; f++)
+            {
+                for (int c = 0; c <= 4; c++)
+                {
+                    patron[f, c] = "X";
+                }
+            }
+            return patron;
+        }
+
+        public string[,] patron4Esquinas()
+        {
+            string[,] patron = new string[5, 5];
+            patron[0, 0] = "X"; patron[0, 4] = "X";
+            patron[2, 2] = "X";
+            patron[4, 0] = "X"; patron[4, 4] = "X";
+            return patron;
+        }
+
+        public string[,] patronH()
+        {
+            string[,] patron = new string[5, 5];
+            patron[2, 2] = "X";
+            for (int f = 0; f < 5; f++)
+            {
+                for (int c = 0; c < 5; c++)
+                {
+                    if (c == 0 || c == 4)
+                        patron[f, c] = "X";
+                    else
+                    {
+                        if (f == 2)
+                            patron[f, c] = "X";
+                    }
+                }
+            }
+            return patron;
+        }
+
+        public string[,] patronX()
+        {
+            string[,] patron = new string[5, 5];
+            patron[0, 0] = "X"; patron[0, 4] = "X";
+            patron[1, 1] = "X"; patron[1, 3] = "X";
+            patron[2, 2] = "X";
+            patron[3, 1] = "X"; patron[3, 3] = "X";
+            patron[4, 0] = "X"; patron[4, 4] = "X";
+            return patron;
+        }
+
+        public string[,] patronO()
+        {
+            string[,] patron = new string[5, 5];
+            patron[2, 2] = "X";
+            for (int f = 0; f < 5; f++)
+            {
+                for (int c = 0; c < 5; c++)
+                {
+                    if (f == 0 || f == 4)
+                    {
+                        if (c == 1 || c == 2 || c == 3)
+                            patron[f, c] = "X";
+                    }
+                    else
+                    {
+                        if (c == 0 || c == 4)
+                            patron[f, c] = "X";
+                    }
+                }
+            }
+            return patron;
+        }
+
+        public string[,] patronU()
+        {
+            string[,] patron = new string[5, 5];
+            patron[2, 2] = "X";
+            for (int f = 0; f < 5; f++)
+            {
+                for (int c = 0; c < 5; c++)
+                {
+                    if (f == 4)
+                    {
+                        if (c == 1 || c == 2 || c == 3)
+                            patron[f, c] = "X";
+                    }
+                    else
+                    {
+                        if (c == 0 || c == 4)
+                            patron[f, c] = "X";
+                    }
+                }
+            }
+            return patron;
+        }
+
+        public string[,] patronP()
+        {
+            string[,] patron = new string[5, 5];
+            for (int c = 0; c < 3; c++)
+            {
+                for (int f = 0; f < 5; f++)
+                {
+                    if (c == 0)
+                        patron[f, c] = "X";
+                    if (c == 1)
+                    {
+                        if (f == 0 || f == 2)
+                            patron[f, c] = "X";
+                    }
+                    if (c == 2)
+                    {
+                        if (f == 0 || f == 1 || f == 2)
+                            patron[f, c] = "X";
+                    }
+                }
+            }
+            return patron;
+        }
+
+        public string[,] patronA()
+        {
+            string[,] patron = new string[5, 5];
+            patron[2, 2] = "X"; patron[0, 2] = "X";
+            for (int c = 0; c < 5; c++)
+            {
+                for (int f = 0; f < 5; f++)
+                {
+                    if (c == 0 || c == 4)
+                    {
+                        patron[f, c] = "X";
+                    }
+                    else
+                    {
+                        if (f == 0 || f == 2)
+                            patron[f, c] = "X";
+                    }
+                }
+            }
+            return patron;
+        }
+
+        public string[,] patronE()
+        {
+            string[,] patron = new string[5, 5];
+            patron[2, 2] = "X"; patron[0, 2] = "X";
+            for (int c = 0; c < 5; c++)
+            {
+                for (int f = 0; f < 5; f++)
+                {
+                    if (c == 0)
+                    {
+                        patron[f, c] = "X";
+                    }
+                    else
+                    {
+                        if (f == 0 || f == 2 || f == 4)
+                            patron[f, c] = "X";
+                    }
+                }
+            }
+            return patron;
+        }
+
+
     }
 }
