@@ -146,7 +146,7 @@ namespace WcfLab1.Domain.Actions
             Console.ReadKey();
         }
 
-        public string[,] patronLleno()
+        public string[,] patternFull()
         {
             string[,] patron = new string[5, 5];
             for (int f = 0; f < 5; f++)
@@ -159,7 +159,7 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
-        public string[,] patron4Esquinas()
+        public string[,] pattern4Corners()
         {
             string[,] patron = new string[5, 5];
             patron[0, 0] = "X"; patron[0, 4] = "X";
@@ -168,7 +168,7 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
-        public string[,] patronH()
+        public string[,] patternH()
         {
             string[,] patron = new string[5, 5];
             patron[2, 2] = "X";
@@ -188,7 +188,7 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
-        public string[,] patronX()
+        public string[,] patternX()
         {
             string[,] patron = new string[5, 5];
             patron[0, 0] = "X"; patron[0, 4] = "X";
@@ -199,7 +199,7 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
-        public string[,] patronO()
+        public string[,] patternO()
         {
             string[,] patron = new string[5, 5];
             patron[2, 2] = "X";
@@ -222,7 +222,7 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
-        public string[,] patronU()
+        public string[,] patternU()
         {
             string[,] patron = new string[5, 5];
             patron[2, 2] = "X";
@@ -245,7 +245,7 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
-        public string[,] patronP()
+        public string[,] patternP()
         {
             string[,] patron = new string[5, 5];
             for (int c = 0; c < 3; c++)
@@ -269,7 +269,7 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
-        public string[,] patronA()
+        public string[,] patternA()
         {
             string[,] patron = new string[5, 5];
             patron[2, 2] = "X"; patron[0, 2] = "X";
@@ -291,7 +291,7 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
-        public string[,] patronE()
+        public string[,] patternE()
         {
             string[,] patron = new string[5, 5];
             patron[2, 2] = "X"; patron[0, 2] = "X";
