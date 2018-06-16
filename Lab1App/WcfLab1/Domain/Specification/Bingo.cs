@@ -16,14 +16,15 @@ namespace WcfLab1.Domain.Specification
         public void PreparateTheGame()
         {
             var BingoAction = new Domain.Actions.Bingo();
-            BingoElement[,] WinnerCardboard = BingoAction.CreateCardboard();
-            WinnerCardboard = BingoAction.InitializeCardboard(WinnerCardboard);
-            BingoAction.PrintCardboard(WinnerCardboard);
+            BingoAction.GetTheCardboardReady();
         }
 
-        public void GetCardboardsForPlayers()
+        public void GetCardboardsForPlayers(int PlayersNumber)
         {
-
+            for(int i = 0;i<PlayersNumber;i++)
+            {
+                
+            }
         }
 
         public void ShowTheResult()

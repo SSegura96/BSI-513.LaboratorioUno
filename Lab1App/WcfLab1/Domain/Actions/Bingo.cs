@@ -8,6 +8,12 @@ namespace WcfLab1.Domain.Actions
 {
     public class Bingo
     {
+        public void GetTheCardboardReady()
+        {
+            BingoElement[,] Cardboard = CreateCardboard();
+            Cardboard = InitializeCardboard(Cardboard);
+        }
+        
         /// <summary>
         /// Create the matrix
         /// </summary>
@@ -144,6 +150,11 @@ namespace WcfLab1.Domain.Actions
                 Console.WriteLine();
             }
             Console.ReadKey();
+        }
+
+        public void GetNumbers(char letter)
+        {
+
         }
 
         public string[,] patternFull()

@@ -69,6 +69,7 @@
     <Compile Include="Domain\Actions\Bingo.cs" />
     <Compile Include="Domain\Respositories\Bingo.cs" />
     <Compile Include="Domain\Respositories\BingoElement.cs" />
+    <Compile Include="Domain\Respositories\Player.cs" />
     <Compile Include="Domain\Services\Bingo.svc.cs">
       <DependentUpon>Bingo.svc</DependentUpon>
     </Compile>
