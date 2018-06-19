@@ -8,25 +8,167 @@ namespace WcfLab1.Domain.Actions
 {
     public class Bingo
     {
+
         /// <summary>
-        /// Create the matrix
+        /// 
         /// </summary>
         /// <returns></returns>
-        public BingoElement[,] CreateCardboard()
+        public List<Player> CreatePlayer()
         {
-            return new BingoElement[5, 5];
+            Console.WriteLine("How many players want to play?:");
+            int numberOfPlayers = Convert.ToInt32(Console.ReadLine());
+            List<Player> PlayersList = new List<Player>();
+            Player NewPlayer;
+            for (int i = 0; i < numberOfPlayers; i++)
+            {
+                NewPlayer = new Player();
+                Console.WriteLine("Name of the player #{0}:", i + 1);
+                NewPlayer.Name = Console.ReadLine();
+                NewPlayer.CardBoardPlayer = InitializeCardboard(NewPlayer.CardBoardPlayer);
+                PlayersList.Add(NewPlayer);
+            }
+            Console.Clear();
+            return PlayersList;
         }
 
         /// <summary>
-        /// Ony Get a random number that its inside of this range
+        /// 
         /// </summary>
-        /// <param name="FistNumber"></param>
-        /// <param name="LastNumber"></param>
-        /// <returns></returns>
-        public int CalculateNumber(int FistNumber, int LastNumber)
+        /// <param name="PlayersList"></param>
+        public void PrintPlayersAndCardboards(List<Player> PlayersList)
         {
-            Random rnd = new Random();
-            return rnd.Next(FistNumber, LastNumber + 1);
+            foreach (var player in PlayersList)
+            {
+                Console.WriteLine("\n{0}'s Cardboard:", player.Name);
+                PrintCardboard(player);
+                if (player.MarkedNumbers.Count != 0)
+                {
+                    PrintMarkedNumbers(player);
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CurrentNumber"></param>
+        /// <returns></returns>
+        public string GetBingoColumnLetter(int CurrentNumber)
+        {
+            if (CurrentNumber >= 1 && CurrentNumber <= 15)
+            {
+                return "B";
+            }
+            else if (CurrentNumber >= 16 && CurrentNumber <= 30)
+            {
+                return "I";
+            }
+            else if (CurrentNumber >= 31 && CurrentNumber <= 45)
+            {
+                return "N";
+            }
+            else if (CurrentNumber >= 46 && CurrentNumber <= 60)
+            {
+                return "G";
+            }
+            else if (CurrentNumber >= 61 && CurrentNumber <= 75)
+            {
+                return "O";
+            }
+            return String.Empty;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="CurrentNumber"></param>
+        /// <param name="PlayersList"></param>
+        public void MarkNumber(int CurrentNumber, List<Player> PlayersList)
+        {
+            foreach (var Player in PlayersList)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (!(Player.CardBoardPlayer[i, j].Number.Equals(" XXXXXX")))
+                        {
+                            if (Convert.ToInt32(Player.CardBoardPlayer[i, j].Number.Substring(1, 2)) == CurrentNumber)
+                            {
+                                Player.CardBoardPlayer[i, j].State = true;
+                                Console.WriteLine("{0}'s number {1}:[{2}][{3}]", Player.Name, CurrentNumber, i + 1, j + 1);
+                                Player.MarkedNumbers.Add(CurrentNumber);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        public void PrintCardboard(Player player)
+        {
+            BingoElement CurrentElement;
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    CurrentElement = player.CardBoardPlayer[i, j];
+                    if (CurrentElement.State)
+                    {
+                        string NewNumber = CurrentElement.Number.Substring(1, 2);
+
+                        Console.Write(" {0} [X]", NewNumber);
+                    }
+                    else
+                    {
+                        string ModifiedNumber = CurrentElement.Number;
+                        if (!ModifiedNumber.Equals(" XXXXXX"))
+                        {
+                            if (ModifiedNumber.Substring(1, 2).Contains(" "))
+                            {
+                                ModifiedNumber = " 0" + ModifiedNumber.Substring(1, 2) + "[ ]";
+                            }
+                        }
+                        Console.Write(ModifiedNumber);
+                    }
+                }
+                Console.WriteLine("");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        public void PrintMarkedNumbers(Player player)
+        {
+            Console.WriteLine("\n{0}'s Marked Numbers List: {1}", player.Name, string.Join(",", player.MarkedNumbers));
+            Console.WriteLine("------------------------------------------------------------------");
+        }
+
+        /// <summary>
+        /// Fill all the matrix with the numbers
+        /// </summary>
+        /// <param name="m"></param>
+        /// <returns></returns>
+        public BingoElement[,] InitializeCardboard(BingoElement[,] m)
+        {
+            char[] Columns = new char[]
+            {
+                'B','I','N','G','O'
+            };
+
+            for (int i = 0; i < Columns.Length; i++)
+            {
+                FillColumn(Columns[i], m);
+            }
+
+            return m;
         }
 
         /// <summary>
@@ -78,7 +220,7 @@ namespace WcfLab1.Domain.Actions
             {
                 if (CurrentColumn == 'N' && i == 2)
                 {
-                    m[i, ColumnIndex] = new BingoElement("XX", false);
+                    m[i, ColumnIndex] = new BingoElement(" XXXXXX", false);
                 }
                 else
                 {
@@ -88,63 +230,25 @@ namespace WcfLab1.Domain.Actions
                         CurrentNumber = CalculateNumber(FistNumber, LastNumber);
                     }
                     SelectedNumbers.Add(CurrentNumber);
-                    m[i, ColumnIndex] = new BingoElement(CurrentNumber + "", false);
+                    m[i, ColumnIndex] = new BingoElement(" " + CurrentNumber + " [ ]", false);
                 }
             }
             return m;
         }
 
         /// <summary>
-        /// Fill all the matrix with the numbers
+        /// Ony Get a random number that its inside of this range
         /// </summary>
-        /// <param name="m"></param>
+        /// <param name="FistNumber"></param>
+        /// <param name="LastNumber"></param>
         /// <returns></returns>
-        public BingoElement[,] InitializeCardboard(BingoElement[,] m)
+        public int CalculateNumber(int FistNumber, int LastNumber)
         {
-            char[] Columns = new char[]
-            {
-                'B','I','N','G','O'
-            };
-
-            for (int i = 0; i < Columns.Length; i++)
-            {
-                FillColumn(Columns[i], m);
-            }
-
-            return m;
+            Random rnd = new Random();
+            return rnd.Next(FistNumber, LastNumber + 1);
         }
 
-        /// <summary>
-        /// Show the matrix in the screen
-        /// </summary>
-        /// <param name="m"></param>
-        public void PrintCardboard(BingoElement[,] m)
-        {
-            Console.WriteLine(" B  I  N  G  O ");
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    if (i == 2 && j == 2)
-                    {
-                        Console.Write(m[i, j].Number + "|");
-                    }
-                    else
-                    {
-                        if (int.Parse(m[i, j].Number) < 10)
-                        {
-                            Console.Write("0" + m[i, j].Number + "|");
-                        }
-                        else
-                        {
-                            Console.Write(m[i, j].Number + "|");
-                        }
-                    }
-                }
-                Console.WriteLine();
-            }
-            Console.ReadKey();
-        }
+        #region Patterns
 
         public string[,] patternFull()
         {
@@ -313,6 +417,6 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
-
+        #endregion
     }
 }
