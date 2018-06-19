@@ -8,6 +8,16 @@ namespace Lab1App.Presentation
 {
     public class Menu
     {
+        public void Grettings ()
+        {
+            Console.WriteLine("======================================================");
+            Console.WriteLine("    Welcome Players to the Best WCF Bingo Ever!!!");
+            Console.WriteLine("======================================================");
+            Console.WriteLine("               Press ENTER to CONINUE");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
         public int SelectPlayerNumber()
         {
             while (true)
@@ -42,6 +52,11 @@ namespace Lab1App.Presentation
                         break;
                 }
             }
+        }
+
+        public int SelectGameType ()
+        {
+            return 0;
         }
     }
 }

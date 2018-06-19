@@ -15,6 +15,7 @@ namespace WcfLab1.Domain.Services
         {
             var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
             BingoSpecification.PreparateTheGame();
+            BingoSpecification.StartTheGame();
         }
     }
 }

@@ -8,44 +8,6 @@ namespace WcfLab1.Domain.Actions
 {
     public class Bingo
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public void GameStart()
-        {
-            Console.WriteLine("Welcome Players to the Best WCF Bingo Ever!!! (Press ENTER to CONINUE)");
-            Console.ReadKey();
-            Console.Clear();
-            List<Player> PlayersList = new List<Player>(CreatePlayer());
-            PrintPlayersAndCardboards(PlayersList);
-            Console.ReadKey();
-            Console.Clear();
-            Console.WriteLine("Is time to play!!! (Press ENTER to START)");
-            Console.ReadKey();
-            Console.Clear();
-            List<int> NumberList = new List<int>();
-            int CurrentNumber = 0;
-            while (NumberList.Count < 75)
-            {
-                CurrentNumber = CalculateNumber(1, 75);
-                if (!NumberList.Contains(CurrentNumber))
-                {
-                    NumberList.Add(CurrentNumber);
-                    Console.WriteLine("In the column: {0} The number: {1}", GetBingoColumnLetter(CurrentNumber), CurrentNumber);
-                    Console.WriteLine("List of the {0} number(s) played:", NumberList.Count);
-                    Console.WriteLine("{0}", string.Join(",", NumberList));
-                    MarkNumber(CurrentNumber, PlayersList);
-                    PrintPlayersAndCardboards(PlayersList);
-
-                    Console.WriteLine("\nFor the next number, please press ENTER");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-            }
-            //NumberList.Sort();
-            Console.WriteLine("The game is over :(");
-            Console.ReadKey();
-        }
 
         /// <summary>
         /// 
@@ -147,7 +109,7 @@ namespace WcfLab1.Domain.Actions
         /// 
         /// </summary>
         /// <param name="player"></param>
-        static void PrintCardboard(Player player)
+        public void PrintCardboard(Player player)
         {
             BingoElement CurrentElement;
 
@@ -183,7 +145,7 @@ namespace WcfLab1.Domain.Actions
         /// 
         /// </summary>
         /// <param name="player"></param>
-        static void PrintMarkedNumbers(Player player)
+        public void PrintMarkedNumbers(Player player)
         {
             Console.WriteLine("\n{0}'s Marked Numbers List: {1}", player.Name, string.Join(",", player.MarkedNumbers));
             Console.WriteLine("------------------------------------------------------------------");
@@ -194,7 +156,7 @@ namespace WcfLab1.Domain.Actions
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        static BingoElement[,] InitializeCardboard(BingoElement[,] m)
+        public BingoElement[,] InitializeCardboard(BingoElement[,] m)
         {
             char[] Columns = new char[]
             {
@@ -215,7 +177,7 @@ namespace WcfLab1.Domain.Actions
         /// <param name="CurrentColumn"></param>
         /// <param name="m"></param>
         /// <returns></returns>
-        static BingoElement[,] FillColumn(char CurrentColumn, BingoElement[,] m)
+        public BingoElement[,] FillColumn(char CurrentColumn, BingoElement[,] m)
         {
             int ColumnIndex = 0;
             int FistNumber = 0;
@@ -280,7 +242,7 @@ namespace WcfLab1.Domain.Actions
         /// <param name="FistNumber"></param>
         /// <param name="LastNumber"></param>
         /// <returns></returns>
-        static int CalculateNumber(int FistNumber, int LastNumber)
+        public int CalculateNumber(int FistNumber, int LastNumber)
         {
             Random rnd = new Random();
             return rnd.Next(FistNumber, LastNumber + 1);
