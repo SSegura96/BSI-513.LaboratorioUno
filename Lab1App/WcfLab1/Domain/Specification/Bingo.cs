@@ -16,7 +16,7 @@ namespace WcfLab1.Domain.Specification
         public void PreparateTheGame()
         {
             var BingoAction = new Domain.Actions.Bingo();
-            BingoAction.GetTheCardboardReady();
+            BingoAction.GameStart();
         }
 
         public void GetCardboardsForPlayers(int PlayersNumber)

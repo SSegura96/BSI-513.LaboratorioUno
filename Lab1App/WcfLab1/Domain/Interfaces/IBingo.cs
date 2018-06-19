@@ -12,6 +12,6 @@ namespace WcfLab1.Domain.Services
     public interface IBingo
     {
         [OperationContract]
-        void PlayBingo(int PlayerNumber);
+        void PlayBingo();
     }
 }

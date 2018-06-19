@@ -10,9 +10,9 @@ namespace Lab1App
     {
         static void Main(string[] args)
         {
-            Presentation.Menu Menu = new Presentation.Menu();
+            //Presentation.Menu Menu = new Presentation.Menu();
             var WCF = new WcfLab1.Domain.Services.Bingo();
-            WCF.PlayBingo(Menu.SelectPlayerNumber());
+            WCF.PlayBingo();
         }
     }
 }
