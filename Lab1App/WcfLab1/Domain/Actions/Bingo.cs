@@ -332,11 +332,11 @@ namespace WcfLab1.Domain.Actions
                                 }
                             }
                         }
+                        if (XCounter == NumX)
+                        {
+                            return player.Name;
+                        }
                     }
-                }
-                if (XCounter == NumX)
-                {
-                    return player.Name;
                 }
             }
             return null;
@@ -351,7 +351,6 @@ namespace WcfLab1.Domain.Actions
         public string[,] patternFull()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "XXXXXX";
             for (int f = 0; f < 5; f++)
             {
                 for (int c = 0; c <= 4; c++)
@@ -359,6 +358,7 @@ namespace WcfLab1.Domain.Actions
                     patron[f, c] = "X";
                 }
             }
+            patron[2, 2] = "XXXXXX";
             return patron;
         }
 
@@ -382,7 +382,6 @@ namespace WcfLab1.Domain.Actions
         public string[,] patternH()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "XXXXXX";
             for (int f = 0; f < 5; f++)
             {
                 for (int c = 0; c < 5; c++)
@@ -396,6 +395,7 @@ namespace WcfLab1.Domain.Actions
                     }
                 }
             }
+            patron[2, 2] = "XXXXXX";
             return patron;
         }
 
@@ -421,7 +421,6 @@ namespace WcfLab1.Domain.Actions
         public string[,] patternO()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "XXXXXX";
             for (int f = 0; f < 5; f++)
             {
                 for (int c = 0; c < 5; c++)
@@ -438,6 +437,7 @@ namespace WcfLab1.Domain.Actions
                     }
                 }
             }
+            patron[2, 2] = "XXXXXX";
             return patron;
         }
 
@@ -448,7 +448,6 @@ namespace WcfLab1.Domain.Actions
         public string[,] patternU()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "XXXXXX";
             for (int f = 0; f < 5; f++)
             {
                 for (int c = 0; c < 5; c++)
@@ -465,6 +464,7 @@ namespace WcfLab1.Domain.Actions
                     }
                 }
             }
+            patron[2, 2] = "XXXXXX";
             return patron;
         }
 
@@ -475,7 +475,6 @@ namespace WcfLab1.Domain.Actions
         public string[,] patternP()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "XXXXXX";
             for (int c = 0; c < 3; c++)
             {
                 for (int f = 0; f < 5; f++)
@@ -494,6 +493,7 @@ namespace WcfLab1.Domain.Actions
                     }
                 }
             }
+            patron[2, 2] = "XXXXXX";
             return patron;
         }
 
@@ -504,7 +504,6 @@ namespace WcfLab1.Domain.Actions
         public string[,] patternA()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "XXXXXX";
             patron[0, 2] = "X";
             for (int c = 0; c < 5; c++)
             {
@@ -521,6 +520,7 @@ namespace WcfLab1.Domain.Actions
                     }
                 }
             }
+            patron[2, 2] = "XXXXXX";
             return patron;
         }
 
@@ -531,7 +531,6 @@ namespace WcfLab1.Domain.Actions
         public string[,] patternE()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "XXXXXX";
             patron[0, 2] = "X";
             for (int c = 0; c < 5; c++)
             {
@@ -548,6 +547,7 @@ namespace WcfLab1.Domain.Actions
                     }
                 }
             }
+            patron[2, 2] = "XXXXXX";
             return patron;
         }
 
