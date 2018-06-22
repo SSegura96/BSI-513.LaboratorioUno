@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WcfLab1.Domain.Respositories;
+using WcfLab1.Domain.Services;
 
 namespace WcfLab1.Domain.Actions
 {
@@ -13,13 +14,11 @@ namespace WcfLab1.Domain.Actions
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<Player> CreatePlayer()
+        public List<Player> CreatePlayer(int PlayeresNumber)
         {
-            Console.WriteLine("How many players want to play?:");
-            int numberOfPlayers = Convert.ToInt32(Console.ReadLine());
             List<Player> PlayersList = new List<Player>();
             Player NewPlayer;
-            for (int i = 0; i < numberOfPlayers; i++)
+            for (int i = 0; i < PlayeresNumber; i++)
             {
                 NewPlayer = new Player();
                 Console.WriteLine("Name of the player #{0}:", i + 1);
@@ -47,7 +46,7 @@ namespace WcfLab1.Domain.Actions
                 }
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -248,11 +247,111 @@ namespace WcfLab1.Domain.Actions
             return rnd.Next(FistNumber, LastNumber + 1);
         }
 
+        public string[,] GetWinnerPattern(GameType gameType)
+        {
+            switch (gameType)
+            {
+                case GameType.Full:
+                    return patternFull();
+                case GameType.FourCorners:
+                    return pattern4Corners();
+                case GameType.H:
+                    return patternH();
+                case GameType.X:
+                    return patternX();
+                case GameType.O:
+                    return patternO();
+                case GameType.U:
+                    return patternU();
+                case GameType.P:
+                    return patternP();
+                case GameType.A:
+                    return patternA();
+                case GameType.E:
+                    return patternE();
+                default:
+                    return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="ElementList"></param>
+        /// <returns></returns>
+        public int CountOfElement(string element, string[,] ElementList)
+        {
+            int NumElement = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    if (ElementList[i, j] != null)
+                    {
+                        if (ElementList[i, j].Equals(element))
+                        {
+                            NumElement++;
+                        }
+                    }
+                }
+            }
+            return NumElement;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="WinnerPattern"></param>
+        /// <param name="PlayersList"></param>
+        /// <returns></returns>
+        public string GetTheWinner(string[,] WinnerPattern, List<Player> PlayersList)
+        {
+            int NumX = CountOfElement("X", WinnerPattern);
+            int XCounter = 0;
+
+            foreach (var player in PlayersList)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (WinnerPattern[i, j] != null)
+                        {
+                            if (WinnerPattern[i, j].Equals("X"))
+                            {
+
+                                if (!player.CardBoardPlayer[i, j].State)
+                                {
+                                    i = 5;
+                                    j = 5;
+                                }
+                                else
+                                {
+                                    XCounter++;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (XCounter == NumX)
+                {
+                    return player.Name;
+                }
+            }
+            return null;
+        }
+
         #region Patterns
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string[,] patternFull()
         {
             string[,] patron = new string[5, 5];
+            patron[2, 2] = "XXXXXX";
             for (int f = 0; f < 5; f++)
             {
                 for (int c = 0; c <= 4; c++)
@@ -263,19 +362,27 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string[,] pattern4Corners()
         {
             string[,] patron = new string[5, 5];
             patron[0, 0] = "X"; patron[0, 4] = "X";
-            patron[2, 2] = "X";
+            patron[2, 2] = "XXXXXX";
             patron[4, 0] = "X"; patron[4, 4] = "X";
             return patron;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string[,] patternH()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "X";
+            patron[2, 2] = "XXXXXX";
             for (int f = 0; f < 5; f++)
             {
                 for (int c = 0; c < 5; c++)
@@ -292,21 +399,29 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string[,] patternX()
         {
             string[,] patron = new string[5, 5];
             patron[0, 0] = "X"; patron[0, 4] = "X";
             patron[1, 1] = "X"; patron[1, 3] = "X";
-            patron[2, 2] = "X";
+            patron[2, 2] = "XXXXXX";
             patron[3, 1] = "X"; patron[3, 3] = "X";
             patron[4, 0] = "X"; patron[4, 4] = "X";
             return patron;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string[,] patternO()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "X";
+            patron[2, 2] = "XXXXXX";
             for (int f = 0; f < 5; f++)
             {
                 for (int c = 0; c < 5; c++)
@@ -326,10 +441,14 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string[,] patternU()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "X";
+            patron[2, 2] = "XXXXXX";
             for (int f = 0; f < 5; f++)
             {
                 for (int c = 0; c < 5; c++)
@@ -349,9 +468,14 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string[,] patternP()
         {
             string[,] patron = new string[5, 5];
+            patron[2, 2] = "XXXXXX";
             for (int c = 0; c < 3; c++)
             {
                 for (int f = 0; f < 5; f++)
@@ -373,10 +497,15 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string[,] patternA()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "X"; patron[0, 2] = "X";
+            patron[2, 2] = "XXXXXX";
+            patron[0, 2] = "X";
             for (int c = 0; c < 5; c++)
             {
                 for (int f = 0; f < 5; f++)
@@ -395,10 +524,15 @@ namespace WcfLab1.Domain.Actions
             return patron;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string[,] patternE()
         {
             string[,] patron = new string[5, 5];
-            patron[2, 2] = "X"; patron[0, 2] = "X";
+            patron[2, 2] = "XXXXXX";
+            patron[0, 2] = "X";
             for (int c = 0; c < 5; c++)
             {
                 for (int f = 0; f < 5; f++)
