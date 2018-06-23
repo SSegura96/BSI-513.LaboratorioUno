@@ -16,5 +16,3 @@ Integrant:
 
 [Javier Fernandez](mailto:javier_f13@outlook.com)
 
-[Royman Gutierrez](mailto:rggs3010@gmail.com)
-
