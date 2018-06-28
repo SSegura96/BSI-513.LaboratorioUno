@@ -19,9 +19,9 @@ namespace WcfLab1.Domain.Specification
         /// <summary>
         /// 
         /// </summary>
-        public List<Player> PreparateTheGame(int PlayersNumber)
+        public List<Player> PreparateTheGame(string[] userName, int PlayersNumber)
         {
-            List<Player> PlayersList = new List<Player>(BingoAction.CreatePlayer(PlayersNumber));
+            List<Player> PlayersList = new List<Player>(BingoAction.CreatePlayer(userName, PlayersNumber));
             BingoAction.PrintPlayersAndCardboards(PlayersList);
 
             Console.WriteLine("");

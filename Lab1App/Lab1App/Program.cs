@@ -13,7 +13,8 @@ namespace Lab1App
         {
             Presentation.Menu Menu = new Presentation.Menu();
             Menu.Grettings();
-            var WCF = new WcfLab1.Domain.Services.Bingo(Menu.GetNumberOfPlayers(), Menu.SelectPlayMode());
+            int numPlayers = Menu.GetNumberOfPlayers();
+            var WCF = new WcfLab1.Domain.Services.Bingo(numPlayers, Menu.SelectPlayMode(), Menu.namePlayers(numPlayers));
             string WinnerName = WCF.PlayBingo();
             Menu.ShowTheWinner(WinnerName);
             Menu.Goodbye();

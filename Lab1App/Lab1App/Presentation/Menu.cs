@@ -95,5 +95,19 @@ namespace Lab1App.Presentation
             Console.WriteLine("The game is over :(");
             Console.ReadKey();
         }
+
+        public string[] namePlayers(int numPlayer)
+        {
+            string[] names = new string[numPlayer];
+            for (int i = 0; i < numPlayer; i++)
+            {
+                Console.WriteLine("Name of the player #{0}:", i + 1);
+                names[i] = Console.ReadLine();
+            }
+            Console.Clear();
+            return names;
+        }
+
+
     }
 }

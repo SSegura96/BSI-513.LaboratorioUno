@@ -15,17 +15,19 @@ namespace WcfLab1.Domain.Services
         
         public int PlayeresNumber { get ; set ; }
         public GameType GameType { get ; set ; }
+        public string[] UserNames { get; set; }
 
-        public Bingo(int _PlayeresNumber, GameType _GameType)
+        public Bingo(int _PlayeresNumber, GameType _GameType, string[] _UserNames)
         {
             this.PlayeresNumber = _PlayeresNumber;
             this.GameType = _GameType;
+            this.UserNames = _UserNames;
         }
 
         public string PlayBingo()
         {
             var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
-            List<Player> PlayersList = BingoSpecification.PreparateTheGame(PlayeresNumber);
+            List<Player> PlayersList = BingoSpecification.PreparateTheGame(UserNames, PlayeresNumber);
             return BingoSpecification.StartTheGame(GameType, PlayersList);
         }
     }

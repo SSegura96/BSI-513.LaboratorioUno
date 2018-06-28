@@ -9,24 +9,22 @@ namespace WcfLab1.Domain.Actions
 {
     public class Bingo
     {
+        List<Player> PlayersList = new List<Player>();
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<Player> CreatePlayer(int PlayeresNumber)
+        public List<Player> CreatePlayer(string[] userNames, int PlayeresNumber)
         {
-            List<Player> PlayersList = new List<Player>();
             Player NewPlayer;
             for (int i = 0; i < PlayeresNumber; i++)
             {
                 NewPlayer = new Player();
-                Console.WriteLine("Name of the player #{0}:", i + 1);
-                NewPlayer.Name = Console.ReadLine();
+                NewPlayer.Name = userNames[i];
                 NewPlayer.CardBoardPlayer = InitializeCardboard(NewPlayer.CardBoardPlayer);
                 PlayersList.Add(NewPlayer);
             }
-            Console.Clear();
             return PlayersList;
         }
 
