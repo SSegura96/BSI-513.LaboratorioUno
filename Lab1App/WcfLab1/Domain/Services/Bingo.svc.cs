@@ -24,11 +24,25 @@ namespace WcfLab1.Domain.Services
             this.UserNames = _UserNames;
         }
 
-        public string PlayBingo()
-        {
+        public List<Player> preparateTheGame() {
             var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
-            List<Player> PlayersList = BingoSpecification.PreparateTheGame(UserNames, PlayeresNumber);
-            return BingoSpecification.StartTheGame(GameType, PlayersList);
+            return BingoSpecification.PreparateTheGame(UserNames, PlayeresNumber);
         }
+
+        public int PlayBingo(List<Player> PlayersList, List<int> list) {
+            var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
+            return BingoSpecification.StartTheGame(GameType, PlayersList, list);
+        }
+
+        public string Winner(List<Player> playersList) {
+            var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
+            return BingoSpecification.CheckWinner(GameType, playersList);
+        }
+
+        public string ColumnLetter(int CurrentNumber) {
+            var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
+            return BingoSpecification.GetColumnLetter(CurrentNumber);
+        }
+
     }
 }

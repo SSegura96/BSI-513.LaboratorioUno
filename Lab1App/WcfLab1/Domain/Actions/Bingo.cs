@@ -31,27 +31,9 @@ namespace WcfLab1.Domain.Actions
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="PlayersList"></param>
-        public void PrintPlayersAndCardboards(List<Player> PlayersList)
-        {
-            foreach (var player in PlayersList)
-            {
-                Console.WriteLine("\n{0}'s Cardboard:", player.Name);
-                PrintCardboard(player);
-                if (player.MarkedNumbers.Count != 0)
-                {
-                    PrintMarkedNumbers(player);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="CurrentNumber"></param>
         /// <returns></returns>
-        public string GetBingoColumnLetter(int CurrentNumber)
-        {
+        public string GetBingoColumnLetter(int CurrentNumber) {
             if (CurrentNumber >= 1 && CurrentNumber <= 15)
             {
                 return "B";
@@ -73,79 +55,6 @@ namespace WcfLab1.Domain.Actions
                 return "O";
             }
             return String.Empty;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="CurrentNumber"></param>
-        /// <param name="PlayersList"></param>
-        public void MarkNumber(int CurrentNumber, List<Player> PlayersList)
-        {
-            foreach (var Player in PlayersList)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    for (int j = 0; j < 5; j++)
-                    {
-                        if (!(Player.CardBoardPlayer[i, j].Number.Equals(" XXXXXX")))
-                        {
-                            if (Convert.ToInt32(Player.CardBoardPlayer[i, j].Number.Substring(1, 2)) == CurrentNumber)
-                            {
-                                Player.CardBoardPlayer[i, j].State = true;
-                                Console.WriteLine("{0}'s number {1}:[{2}][{3}]", Player.Name, CurrentNumber, i + 1, j + 1);
-                                Player.MarkedNumbers.Add(CurrentNumber);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player"></param>
-        public void PrintCardboard(Player player)
-        {
-            BingoElement CurrentElement;
-
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    CurrentElement = player.CardBoardPlayer[i, j];
-                    if (CurrentElement.State)
-                    {
-                        string NewNumber = CurrentElement.Number.Substring(1, 2);
-
-                        Console.Write(" {0} [X]", NewNumber);
-                    }
-                    else
-                    {
-                        string ModifiedNumber = CurrentElement.Number;
-                        if (!ModifiedNumber.Equals(" XXXXXX"))
-                        {
-                            if (ModifiedNumber.Substring(1, 2).Contains(" "))
-                            {
-                                ModifiedNumber = " 0" + ModifiedNumber.Substring(1, 2) + "[ ]";
-                            }
-                        }
-                        Console.Write(ModifiedNumber);
-                    }
-                }
-                Console.WriteLine("");
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player"></param>
-        public void PrintMarkedNumbers(Player player)
-        {
-            Console.WriteLine("\n{0}'s Marked Numbers List: {1}", player.Name, string.Join(",", player.MarkedNumbers));
-            Console.WriteLine("------------------------------------------------------------------");
         }
 
         /// <summary>
@@ -303,39 +212,22 @@ namespace WcfLab1.Domain.Actions
         /// <param name="WinnerPattern"></param>
         /// <param name="PlayersList"></param>
         /// <returns></returns>
-        public string GetTheWinner(string[,] WinnerPattern, List<Player> PlayersList)
-        {
-            int NumX = CountOfElement("X", WinnerPattern);
-            int XCounter = 0;
-
-            foreach (var player in PlayersList)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    for (int j = 0; j < 5; j++)
-                    {
-                        if (WinnerPattern[i, j] != null)
-                        {
-                            if (WinnerPattern[i, j].Equals("X"))
-                            {
-
-                                if (!player.CardBoardPlayer[i, j].State)
-                                {
-                                    i = 5;
-                                    j = 5;
-                                }
-                                else
-                                {
-                                    XCounter++;
-                                }
-                            }
-                        }
-                        if (XCounter == NumX)
-                        {
-                            return player.Name;
+        public string GetTheWinner(string[,] WinnerPattern, List<Player> PlayersList){
+            foreach (var player in PlayersList) {
+                int xPattern = -1;
+                int xPlayer = 0;
+                for (int f = 0; f < 5; f++) {
+                    for (int c = 0; c < 5; c++) {
+                        if (WinnerPattern[f, c] != null) {
+                            xPattern++;
+                            if (player.CardBoardPlayer[f, c].State == true)
+                                xPlayer++;
                         }
                     }
                 }
+                if (xPattern == xPlayer)
+
+                    return player.Name;
             }
             return null;
         }
