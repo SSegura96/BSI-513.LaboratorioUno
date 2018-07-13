@@ -17,9 +17,8 @@ namespace WcfLab1.Domain.Services
     [ServiceContract]
     public interface IBingo
     {
-        int PlayeresNumber { get; set; }
-        GameType GameType { get; set; }
         [OperationContract]
-        int PlayBingo(List<Player> PlayersList, List<int> list);
+        int GetNumber(List<int> NumberList);
+        bool GetWinner(GameType GameType, BingoElement[,] BingoCardBoard);
     }
 }

@@ -9,31 +9,13 @@ namespace WcfLab1.Domain.Actions
 {
     public class Bingo
     {
-        List<Player> PlayersList = new List<Player>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public List<Player> CreatePlayer(string[] userNames, int PlayeresNumber)
-        {
-            Player NewPlayer;
-            for (int i = 0; i < PlayeresNumber; i++)
-            {
-                NewPlayer = new Player();
-                NewPlayer.Name = userNames[i];
-                NewPlayer.CardBoardPlayer = InitializeCardboard(NewPlayer.CardBoardPlayer);
-                PlayersList.Add(NewPlayer);
-            }
-            return PlayersList;
-        }
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="CurrentNumber"></param>
         /// <returns></returns>
-        public string GetBingoColumnLetter(int CurrentNumber) {
+        public string GetBingoColumnLetter(int CurrentNumber)
+        {
             if (CurrentNumber >= 1 && CurrentNumber <= 15)
             {
                 return "B";
@@ -212,24 +194,27 @@ namespace WcfLab1.Domain.Actions
         /// <param name="WinnerPattern"></param>
         /// <param name="PlayersList"></param>
         /// <returns></returns>
-        public string GetTheWinner(string[,] WinnerPattern, List<Player> PlayersList){
-            foreach (var player in PlayersList) {
-                int xPattern = -1;
-                int xPlayer = 0;
-                for (int f = 0; f < 5; f++) {
-                    for (int c = 0; c < 5; c++) {
-                        if (WinnerPattern[f, c] != null) {
-                            xPattern++;
-                            if (player.CardBoardPlayer[f, c].State == true)
-                                xPlayer++;
-                        }
+        public bool GetTheWinner(string[,] WinnerPattern, BingoElement[,] cardBoardPlayer)
+        {
+            int xPattern = -1;
+            int xPlayer = 0;
+            for (int f = 0; f < 5; f++)
+            {
+                for (int c = 0; c < 5; c++)
+                {
+                    if (WinnerPattern[f, c] != null)
+                    {
+                        xPattern++;
+                        if (cardBoardPlayer[f, c].State == true)
+                            xPlayer++;
                     }
                 }
-                if (xPattern == xPlayer)
-
-                    return player.Name;
             }
-            return null;
+            if (xPattern == xPlayer)
+            {
+                return true;
+            }
+            return false;
         }
 
         #region Patterns

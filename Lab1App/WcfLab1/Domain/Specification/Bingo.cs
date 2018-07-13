@@ -10,45 +10,40 @@ namespace WcfLab1.Domain.Specification
     public class Bingo
     {
         private Domain.Actions.Bingo BingoAction { get; set; }
-        
 
-        public Bingo(){
+
+        public Bingo()
+        {
             BingoAction = new Domain.Actions.Bingo();
         }
 
         /// <summary>
-        /// 
+        /// Return a number betwen 1 - 75 and fill a list
         /// </summary>
-        public List<Player> PreparateTheGame(string[] userName, int PlayersNumber)
+        /// <param name="NumberList"> List of numbers to play </param>
+        /// <returns></returns>
+        public int GetNumber(List<int> NumberList)
         {
-            List<Player> PlayersList = new List<Player>(BingoAction.CreatePlayer(userName, PlayersNumber));
-            return PlayersList;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int StartTheGame(GameType gameType, List<Player> playersList, List<int> NumberList) {
             int CurrentNumber = 0;
-            while (NumberList.Count < 75){
+            while (NumberList.Count < 75)
+            {
                 CurrentNumber = BingoAction.CalculateNumber(1, 75);
-                if (!NumberList.Contains(CurrentNumber)) {
+                if (!NumberList.Contains(CurrentNumber))
+                {
                     return CurrentNumber;
                 }
             }
             return CurrentNumber;
         }
 
-        public string CheckWinner(GameType gameType, List<Player> playersList) {
+        public bool CheckWinner(GameType gameType, BingoElement[,] BingoCardBoard)
+        {
             string[,] WinnerPatter = BingoAction.GetWinnerPattern(gameType);
-            string WinnerName = BingoAction.GetTheWinner(WinnerPatter, playersList);
-            if (WinnerName != null){
-                return WinnerName;
-            }
-            return null;
+            return BingoAction.GetTheWinner(WinnerPatter, BingoCardBoard);
         }
 
-        public string GetColumnLetter(int CurrentNumber) {
+        public string GetColumnLetter(int CurrentNumber)
+        {
             return BingoAction.GetBingoColumnLetter(CurrentNumber);
         }
 

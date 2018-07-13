@@ -12,36 +12,26 @@ namespace WcfLab1.Domain.Services
     // NOTE: In order to launch WCF Test Client for testing this service, please select Bingo.svc or Bingo.svc.cs at the Solution Explorer and start debugging.
     public class Bingo : IBingo
     {
-        
-        public int PlayeresNumber { get ; set ; }
-        public GameType GameType { get ; set ; }
-        public string[] UserNames { get; set; }
+        private WcfLab1.Domain.Specification.Bingo Specification { get; set; }
 
-        public Bingo(int _PlayeresNumber, GameType _GameType, string[] _UserNames)
+        public Bingo()
         {
-            this.PlayeresNumber = _PlayeresNumber;
-            this.GameType = _GameType;
-            this.UserNames = _UserNames;
+            this.Specification = new WcfLab1.Domain.Specification.Bingo();
         }
 
-        public List<Player> preparateTheGame() {
-            var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
-            return BingoSpecification.PreparateTheGame(UserNames, PlayeresNumber);
+        public int GetNumber(List<int> NumberList)
+        {
+            return Specification.GetNumber(NumberList);
         }
 
-        public int PlayBingo(List<Player> PlayersList, List<int> list) {
-            var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
-            return BingoSpecification.StartTheGame(GameType, PlayersList, list);
+        public bool GetWinner(GameType GameType, BingoElement[,] BingoCardBoard)
+        {
+            return Specification.CheckWinner(GameType, BingoCardBoard);
         }
 
-        public string Winner(List<Player> playersList) {
-            var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
-            return BingoSpecification.CheckWinner(GameType, playersList);
-        }
-
-        public string ColumnLetter(int CurrentNumber) {
-            var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
-            return BingoSpecification.GetColumnLetter(CurrentNumber);
+        public string ColumnLetter(int CurrentNumber)
+        {
+            return Specification.GetColumnLetter(CurrentNumber);
         }
 
     }

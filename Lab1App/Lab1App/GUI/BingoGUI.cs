@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using WcfLab1.Domain.Services;
 using WcfLab1.Domain.Respositories;
+using Lab1App.GUI;
+using Lab1App.Models;
 
 namespace Lab1App.Presentation
 {
-    public class Menu{
+    public class BingoGUI : IBingoGUI
+    {
 
-        public void Grettings()
+        public void GrettingsPropmt()
         {
             Console.WriteLine("======================================================");
             Console.WriteLine("    Welcome Players to the Best WCF Bingo Ever!!!");
@@ -20,18 +23,24 @@ namespace Lab1App.Presentation
             Console.Clear();
         }
 
-        public int GetNumberOfPlayers()
+        public string[] GetPlayersNames()
         {
-            int resp = 0;
+            int numPlayes = 0;
             while (true)
             {
                 Console.WriteLine("Write the number of players");
-                if (int.TryParse(Console.ReadLine(), out resp))
+                if (int.TryParse(Console.ReadLine(), out numPlayes))
                 {
-                    if (resp > 0 && resp <= 10)
+                    if (numPlayes > 0 && numPlayes <= 10)
                     {
+                        string[] names = new string[numPlayes];
+                        for (int i = 0; i < numPlayes; i++)
+                        {
+                            Console.WriteLine("Name of the player #{0}:", i + 1);
+                            names[i] = Console.ReadLine();
+                        }
                         Console.Clear();
-                        return resp;
+                        return names;
                     }
                     Console.WriteLine("Only can play 1 - 10 people");
                 }
@@ -91,40 +100,34 @@ namespace Lab1App.Presentation
             Console.WriteLine("======================================================");
         }
 
-        public void Goodbye ()
+        public void GoodbyePropmt()
         {
             Console.WriteLine("The game is over :(");
             Console.ReadKey();
         }
 
-        public string[] namePlayers(int numPlayer)
-        {
-            string[] names = new string[numPlayer];
-            for (int i = 0; i < numPlayer; i++)
-            {
-                Console.WriteLine("Name of the player #{0}:", i + 1);
-                names[i] = Console.ReadLine();
-            }
-            Console.Clear();
-            return names;
-        }
-
-        public void printPlayersAndCardboard(List<Player> PlayersList) {
+        public void PrintPlayersAndCardboard(List<Player> PlayersList) {
             foreach (var player in PlayersList) {
                 Console.WriteLine("\n{0}'s Cardboard:", player.Name);
-                printCardboard(player);
+                PrintCardboard(player);
                 if (player.MarkedNumbers.Count != 0){
-                    printMarkedNumbers(player);
+                    PrintMarkedNumbers(player);
                 }
             }
         }
 
+        public void TimeToPlayPropmt()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Is time to play!!! (Press ENTER to START)");
+            Console.ReadKey();
+        }
 
         /// <summary>
         /// </summary>
         /// <param name="player"></param>
-        public void printCardboard(Player player) {
-            WcfLab1.Domain.Respositories.BingoElement CurrentElement;
+        public void PrintCardboard(Player player) {
+            Models.BingoElement CurrentElement;
             for (int i = 0; i < 5; i++){
                 for (int j = 0; j < 5; j++){
                     CurrentElement = player.CardBoardPlayer[i, j];
@@ -150,7 +153,7 @@ namespace Lab1App.Presentation
         /// <summary>
         /// </summary>
         /// <param name="player"></param>
-        public void printMarkedNumbers(Player player) {
+        public void PrintMarkedNumbers(Player player) {
             Console.WriteLine("\n{0}'s Marked Numbers List: {1}", player.Name, string.Join(",", player.MarkedNumbers));
             Console.WriteLine("------------------------------------------------------------------");
         }
@@ -180,23 +183,17 @@ namespace Lab1App.Presentation
             }
         }
 
-        public string stargame(List<Player> players, Bingo WCF) {
-            List<int> NumberList = new List<int>();
-            while (WCF.Winner(players) == null){
-                Console.WriteLine("\nFor the next number, please press ENTER");
-                Console.ReadKey();
-                Console.Clear();
-                int CurrentNumber = WCF.PlayBingo(players, NumberList);
-                NumberList.Add(CurrentNumber);
-                Console.WriteLine("In the column: {0} The number: {1}", WCF.ColumnLetter(CurrentNumber), CurrentNumber);
-                Console.WriteLine("List of the {0} number(s) played:", NumberList.Count);
-                Console.WriteLine("{0}", string.Join(",", NumberList));
-                MarkNumber(CurrentNumber, players);
-                printPlayersAndCardboard(players);
-            }
-            return WCF.Winner(players);
+        public void PressEnterPropmt()
+        {
+            Console.WriteLine("\nFor the next number, please press ENTER");
+            Console.ReadKey();
+            Console.Clear();
         }
 
-
+        public void ShowNumberList(List<int> NumberList)
+        {
+            Console.WriteLine("List of the {0} number(s) played:", NumberList.Count);
+            Console.WriteLine("{0}", string.Join(",", NumberList));
+        }
     }
 }
