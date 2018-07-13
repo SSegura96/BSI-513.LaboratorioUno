@@ -12,7 +12,7 @@ namespace Lab1App.Presentation
 {
     public class BingoGUI : IBingoGUI
     {
-
+        #region DisplayPropmts
         public void GrettingsPropmt()
         {
             Console.WriteLine("======================================================");
@@ -22,6 +22,30 @@ namespace Lab1App.Presentation
             Console.ReadKey();
             Console.Clear();
         }
+
+        public void TimeToPlayPropmt()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Is time to play!!! (Press ENTER to START)");
+            Console.ReadKey();
+        }
+
+        public void PressEnterPropmt()
+        {
+            Console.WriteLine("\nFor the next number, please press ENTER");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public void GoodbyePropmt()
+        {
+            Console.WriteLine("\nThe game is over :(");
+            Console.ReadKey();
+        }
+
+        #endregion
+
+        #region Prepare The game
 
         public string[] GetPlayersNames()
         {
@@ -93,41 +117,6 @@ namespace Lab1App.Presentation
             }
         }
 
-        public void ShowTheWinner(string PlayerName)
-        {
-            Console.Clear();
-            Console.WriteLine("======================================================");
-            Console.WriteLine("      Congratulations {0} you are the winner!!!", PlayerName);
-            Console.WriteLine("======================================================");
-        }
-
-        public void GoodbyePropmt()
-        {
-            Console.WriteLine("\nThe game is over :(");
-            Console.ReadKey();
-        }
-
-        public void PrintPlayersAndCardboard(List<Player> PlayersList)
-        {
-            foreach (var player in PlayersList)
-            {
-                Console.WriteLine("\n{0}'s Cardboard:", player.Name);
-                PrintCardboard(player);
-                if (player.MarkedNumbers.Count != 0)
-                {
-                    PrintMarkedNumbers(player);
-                }
-            }
-            Console.WriteLine("\n\n");
-        }
-
-        public void TimeToPlayPropmt()
-        {
-            Console.WriteLine("");
-            Console.WriteLine("Is time to play!!! (Press ENTER to START)");
-            Console.ReadKey();
-        }
-
         /// <summary>
         /// </summary>
         /// <param name="player"></param>
@@ -160,6 +149,32 @@ namespace Lab1App.Presentation
                 }
                 Console.WriteLine("");
             }
+        }
+
+        #endregion
+
+        #region Make TheMain Task
+
+        public void ShowTheWinner(string PlayerName)
+        {
+            Console.Clear();
+            Console.WriteLine("======================================================");
+            Console.WriteLine("      Congratulations {0} you are the winner!!!", PlayerName);
+            Console.WriteLine("======================================================");
+        }
+
+        public void PrintPlayersAndCardboard(List<Player> PlayersList)
+        {
+            foreach (var player in PlayersList)
+            {
+                Console.WriteLine("\n{0}'s Cardboard:", player.Name);
+                PrintCardboard(player);
+                if (player.MarkedNumbers.Count != 0)
+                {
+                    PrintMarkedNumbers(player);
+                }
+            }
+            Console.WriteLine("\n\n");
         }
 
         /// <summary>
@@ -197,17 +212,12 @@ namespace Lab1App.Presentation
             }
         }
 
-        public void PressEnterPropmt()
-        {
-            Console.WriteLine("\nFor the next number, please press ENTER");
-            Console.ReadKey();
-            Console.Clear();
-        }
-
         public void ShowNumberList(List<int> NumberList)
         {
             Console.WriteLine("List of the {0} number(s) played:", NumberList.Count);
             Console.WriteLine("{0}", string.Join(",", NumberList));
         }
+
+        #endregion
     }
 }

@@ -12,13 +12,12 @@ namespace Lab1App.GUI
     {
         string[] GetPlayersNames();
         GameType SelectPlayMode();
-        void ShowTheWinner(string PlayerName);
         void PrintPlayersAndCardboard(List<Player> PlayersList);
         void PrintCardboard(Player player);
-        void PrintMarkedNumbers(Player player);
         void MarkNumber(int CurrentNumber, List<Player> PlayersList);
+        void PrintMarkedNumbers(Player player);
         void ShowNumberList(List<int> NumberList);
-
+        void ShowTheWinner(string PlayerName);
         void GrettingsPropmt();
         void GoodbyePropmt();
         void TimeToPlayPropmt();
