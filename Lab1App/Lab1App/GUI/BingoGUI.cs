@@ -93,27 +93,32 @@ namespace Lab1App.Presentation
             }
         }
 
-        public void ShowTheWinner (string PlayerName)
+        public void ShowTheWinner(string PlayerName)
         {
+            Console.Clear();
             Console.WriteLine("======================================================");
-            Console.WriteLine("      Congratulations {0} you are the winner!!!",PlayerName);
+            Console.WriteLine("      Congratulations {0} you are the winner!!!", PlayerName);
             Console.WriteLine("======================================================");
         }
 
         public void GoodbyePropmt()
         {
-            Console.WriteLine("The game is over :(");
+            Console.WriteLine("\nThe game is over :(");
             Console.ReadKey();
         }
 
-        public void PrintPlayersAndCardboard(List<Player> PlayersList) {
-            foreach (var player in PlayersList) {
+        public void PrintPlayersAndCardboard(List<Player> PlayersList)
+        {
+            foreach (var player in PlayersList)
+            {
                 Console.WriteLine("\n{0}'s Cardboard:", player.Name);
                 PrintCardboard(player);
-                if (player.MarkedNumbers.Count != 0){
+                if (player.MarkedNumbers.Count != 0)
+                {
                     PrintMarkedNumbers(player);
                 }
             }
+            Console.WriteLine("\n\n");
         }
 
         public void TimeToPlayPropmt()
@@ -126,34 +131,42 @@ namespace Lab1App.Presentation
         /// <summary>
         /// </summary>
         /// <param name="player"></param>
-        public void PrintCardboard(Player player) {
-            Models.BingoElement CurrentElement;
-            for (int i = 0; i < 5; i++){
-                for (int j = 0; j < 5; j++){
+        public void PrintCardboard(Player player)
+        {
+            BingoElement CurrentElement;
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
                     CurrentElement = player.CardBoardPlayer[i, j];
-                    if (CurrentElement.State){
+                    if (CurrentElement.State)
+                    {
                         string NewNumber = CurrentElement.Number.Substring(1, 2);
 
                         Console.Write(" {0} [X]", NewNumber);
                     }
-                    else {
+                    else
+                    {
                         string ModifiedNumber = CurrentElement.Number;
-                        if (!ModifiedNumber.Equals(" XXXXXX")){
-                            if (ModifiedNumber.Substring(1, 2).Contains(" ")){
+                        if (!ModifiedNumber.Equals(" XXXXXX"))
+                        {
+                            if (ModifiedNumber.Substring(1, 2).Contains(" "))
+                            {
                                 ModifiedNumber = " 0" + ModifiedNumber.Substring(1, 2) + "[ ]";
                             }
                         }
                         Console.Write(ModifiedNumber);
                     }
                 }
-                Console.WriteLine(""); 
+                Console.WriteLine("");
             }
         }
 
         /// <summary>
         /// </summary>
         /// <param name="player"></param>
-        public void PrintMarkedNumbers(Player player) {
+        public void PrintMarkedNumbers(Player player)
+        {
             Console.WriteLine("\n{0}'s Marked Numbers List: {1}", player.Name, string.Join(",", player.MarkedNumbers));
             Console.WriteLine("------------------------------------------------------------------");
         }
@@ -162,7 +175,8 @@ namespace Lab1App.Presentation
         /// </summary>
         /// <param name="CurrentNumber"></param>
         /// <param name="PlayersList"></param>
-        public void MarkNumber(int CurrentNumber, List<Player> PlayersList) {
+        public void MarkNumber(int CurrentNumber, List<Player> PlayersList)
+        {
             foreach (var Player in PlayersList)
             {
                 for (int i = 0; i < 5; i++)

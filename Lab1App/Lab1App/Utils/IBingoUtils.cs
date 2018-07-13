@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WcfLab1.Domain.Respositories;
 
 namespace Lab1App.Utils
 {

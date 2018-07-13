@@ -16,7 +16,7 @@ namespace Lab1App.Application
         private readonly IBingoGUI bingoGUI;
         private readonly IBingo WFCBingo;
 
-        public BingoApplication(IBingoUtils _utils, IBingoGUI _bingoGUI,IBingo _WFCBingo)
+        public BingoApplication(IBingoUtils _utils, IBingoGUI _bingoGUI, IBingo _WFCBingo)
         {
             this.utils = _utils;
             this.bingoGUI = _bingoGUI;
@@ -36,6 +36,31 @@ namespace Lab1App.Application
             return new Game(bingoGUI.SelectPlayMode(), PlayerList);
         }
 
+        public string MakeTheMainTask(Game game)
+        {
+            List<int> NumberList = new List<int>();
+            int CurrentNumber = 0;
+            bool BingoResult = false;
+            while (!BingoResult)
+            {
+                bingoGUI.PressEnterPropmt();
+                CurrentNumber = WFCBingo.GetNumber(NumberList);
+                NumberList.Add(CurrentNumber);
+                bingoGUI.ShowNumberList(NumberList);
+                foreach (var player in game.PlayerList)
+                {
+                    if (WFCBingo.GetWinner(game.GameMode, player.CardBoardPlayer))
+                    {
+                        bingoGUI.PrintPlayersAndCardboard(game.PlayerList);
+                        return player.Name;
+                    }
+                }
+                bingoGUI.MarkNumber(CurrentNumber, game.PlayerList);
+                bingoGUI.PrintPlayersAndCardboard(game.PlayerList);
+            }
+            return null;
+        }
+
         /// <summary>
         /// Execute the main action
         /// </summary>
@@ -43,28 +68,12 @@ namespace Lab1App.Application
         {
             var game = PrepareTheGame();
             bingoGUI.TimeToPlayPropmt();
-            List<int> NumberList = new List<int>();
-            int CurrentNumber = 0;
-            bool BingoResult = false;
-            while(!BingoResult)
-            {
-                bingoGUI.PressEnterPropmt();
-                CurrentNumber = WFCBingo.GetNumber(NumberList);
-                NumberList.Add(CurrentNumber);
-                bingoGUI.ShowNumberList(NumberList);
-                foreach(var player in game.PlayerList)
-                {
-                    //if(WFCBingo.GetWinner(game.GameMode, player.CardBoardPlayer))
-                    //{
-                    //    //return 
-                    //}
-                }
-                bingoGUI.MarkNumber(CurrentNumber, game.PlayerList);
-                bingoGUI.PrintPlayersAndCardboard(game.PlayerList);
-            }
+            bingoGUI.ShowTheWinner(MakeTheMainTask(game));
             bingoGUI.GoodbyePropmt();
         }
 
-        
+
+
+
     }
 }
