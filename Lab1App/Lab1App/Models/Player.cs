@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using WcfLab1.Domain.Respositories;
 
-namespace WcfLab1.Domain.Respositories
+namespace Lab1App.Models
 {
     public class Player
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public BingoElement[,] CardBoardPlayer { get; set; }
         public List<int> MarkedNumbers { get; set; }

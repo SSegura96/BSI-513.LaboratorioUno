@@ -11,64 +11,43 @@ namespace WcfLab1.Domain.Specification
     {
         private Domain.Actions.Bingo BingoAction { get; set; }
 
+
         public Bingo()
         {
             BingoAction = new Domain.Actions.Bingo();
         }
 
         /// <summary>
-        /// 
+        /// Return a number betwen 1 - 75 and fill a list
         /// </summary>
-        public List<Player> PreparateTheGame(int PlayersNumber)
+        /// <param name="NumberList"> List of numbers to play </param>
+        /// <returns></returns>
+        public int GetNumber(List<int> NumberList)
         {
-            List<Player> PlayersList = new List<Player>(BingoAction.CreatePlayer(PlayersNumber));
-            BingoAction.PrintPlayersAndCardboards(PlayersList);
-
-            Console.WriteLine("");
-            Console.WriteLine("Is time to play!!! (Press ENTER to START)");
-            Console.ReadKey();
-            Console.Clear();
-
-            return PlayersList;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string StartTheGame(GameType gameType, List<Player> playersList)
-        {
-
-            string[,] WinnerPatter = BingoAction.GetWinnerPattern(gameType);
-
             int CurrentNumber = 0;
-            List<int> NumberList = new List<int>();
             while (NumberList.Count < 75)
             {
                 CurrentNumber = BingoAction.CalculateNumber(1, 75);
                 if (!NumberList.Contains(CurrentNumber))
                 {
-                    NumberList.Add(CurrentNumber);
-                    Console.WriteLine("In the column: {0} The number: {1}", BingoAction.GetBingoColumnLetter(CurrentNumber), CurrentNumber);
-                    Console.WriteLine("List of the {0} number(s) played:", NumberList.Count);
-                    Console.WriteLine("{0}", string.Join(",", NumberList));
-
-
-                    BingoAction.MarkNumber(CurrentNumber, playersList);
-                    BingoAction.PrintPlayersAndCardboards(playersList);
-
-                    string WinnerName = BingoAction.GetTheWinner(WinnerPatter, playersList);
-
-                    if (WinnerName != null)
-                    {
-                        return WinnerName;
-                    }
-
-                    Console.WriteLine("\nFor the next number, please press ENTER");
-                    Console.ReadKey();
-                    Console.Clear();
+                    return CurrentNumber;
                 }
             }
-            return null;
+            return CurrentNumber;
         }
+
+        public bool CheckWinner(GameType gameType, BingoElement[,] BingoCardBoard)
+        {
+            string[,] WinnerPatter = BingoAction.GetWinnerPattern(gameType);
+            return BingoAction.GetTheWinner(WinnerPatter, BingoCardBoard);
+        }
+
+        public string GetColumnLetter(int CurrentNumber)
+        {
+            return BingoAction.GetBingoColumnLetter(CurrentNumber);
+        }
+
+
+
     }
 }

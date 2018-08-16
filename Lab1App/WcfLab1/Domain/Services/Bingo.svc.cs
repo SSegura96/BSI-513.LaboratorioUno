@@ -12,21 +12,27 @@ namespace WcfLab1.Domain.Services
     // NOTE: In order to launch WCF Test Client for testing this service, please select Bingo.svc or Bingo.svc.cs at the Solution Explorer and start debugging.
     public class Bingo : IBingo
     {
-        
-        public int PlayeresNumber { get ; set ; }
-        public GameType GameType { get ; set ; }
+        private WcfLab1.Domain.Specification.Bingo Specification { get; set; }
 
-        public Bingo(int _PlayeresNumber, GameType _GameType)
+        public Bingo()
         {
-            this.PlayeresNumber = _PlayeresNumber;
-            this.GameType = _GameType;
+            this.Specification = new WcfLab1.Domain.Specification.Bingo();
         }
 
-        public string PlayBingo()
+        public int GetNumber(List<int> NumberList)
         {
-            var BingoSpecification = new WcfLab1.Domain.Specification.Bingo();
-            List<Player> PlayersList = BingoSpecification.PreparateTheGame(PlayeresNumber);
-            return BingoSpecification.StartTheGame(GameType, PlayersList);
+            return Specification.GetNumber(NumberList);
         }
+
+        public bool GetWinner(GameType GameType, BingoElement[,] BingoCardBoard)
+        {
+            return Specification.CheckWinner(GameType, BingoCardBoard);
+        }
+
+        public string ColumnLetter(int CurrentNumber)
+        {
+            return Specification.GetColumnLetter(CurrentNumber);
+        }
+
     }
 }

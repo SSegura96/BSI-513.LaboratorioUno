@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using WcfLab1.Domain.Respositories;
 
 namespace WcfLab1.Domain.Services
 {
@@ -16,9 +17,8 @@ namespace WcfLab1.Domain.Services
     [ServiceContract]
     public interface IBingo
     {
-        int PlayeresNumber { get; set; }
-        GameType GameType { get; set; }
         [OperationContract]
-        string PlayBingo();
+        int GetNumber(List<int> NumberList);
+        bool GetWinner(GameType GameType, BingoElement[,] BingoCardBoard);
     }
 }
